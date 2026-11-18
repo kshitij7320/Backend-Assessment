@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { DatabaseService } from '../db/database.service';
 import {
   createAuthenticationError,
@@ -17,7 +17,7 @@ export interface AuthenticatedActor {
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly db: DatabaseService) {}
+  constructor(@Inject(DatabaseService) private readonly db: DatabaseService) {}
 
   public async authenticateRequest(headers: Record<string, any>): Promise<AuthenticatedActor> {
     const authHeader = headers['authorization'] || headers['Authorization'];

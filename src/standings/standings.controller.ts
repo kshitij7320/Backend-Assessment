@@ -3,6 +3,7 @@ import {
   Get,
   HttpCode,
   HttpStatus,
+  Inject,
   Param,
   Post,
   Query,
@@ -14,7 +15,10 @@ import { RequireOrgRole } from '../auth/auth.guard';
 @ApiTags('Leaderboard & Standings')
 @Controller('api/v1/orgs/:orgId/contests/:contestId/leaderboard')
 export class StandingsController {
-  constructor(private readonly standingsService: StandingsService) {}
+  constructor(
+    @Inject(StandingsService)
+    private readonly standingsService: StandingsService,
+  ) {}
 
   @Get()
   @ApiOperation({

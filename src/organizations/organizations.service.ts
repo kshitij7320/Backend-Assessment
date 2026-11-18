@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { randomUUID } from 'crypto';
 import { DatabaseService } from '../db/database.service';
 import {
@@ -16,7 +16,7 @@ import { OrgRole } from '../auth/auth.service';
 
 @Injectable()
 export class OrganizationsService {
-  constructor(private readonly db: DatabaseService) {}
+  constructor(@Inject(DatabaseService) private readonly db: DatabaseService) {}
 
   public async createOrganization(body: Record<string, any>) {
     const id = body.id ? assertUuid(body.id, 'id') : randomUUID();

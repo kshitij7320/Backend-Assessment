@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Inject } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Public } from './auth/auth.guard';
 import { DatabaseService } from './db/database.service';
@@ -8,7 +8,8 @@ import { DockerRunnerService } from './judge/docker-runner.service';
 @Controller('api/v1/health')
 export class HealthController {
   constructor(
-    private readonly db: DatabaseService,
+    @Inject(DatabaseService) private readonly db: DatabaseService,
+    @Inject(DockerRunnerService)
     private readonly dockerRunner: DockerRunnerService,
   ) {}
 

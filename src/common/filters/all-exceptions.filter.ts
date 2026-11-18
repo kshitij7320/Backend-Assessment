@@ -4,6 +4,7 @@ import {
   ExceptionFilter,
   HttpException,
   HttpStatus,
+  Inject,
 } from '@nestjs/common';
 import { AppError, ErrorCategory } from '../errors/domain-errors';
 import {
@@ -13,7 +14,10 @@ import {
 
 @Catch()
 export class AllExceptionsFilter implements ExceptionFilter {
-  constructor(private readonly logger: StructuredLoggerService) {}
+  constructor(
+    @Inject(StructuredLoggerService)
+    private readonly logger: StructuredLoggerService,
+  ) {}
 
   catch(exception: unknown, host: ArgumentsHost): void {
     const ctx = host.switchToHttp();

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { spawn, execFile } from 'child_process';
 import { randomBytes } from 'crypto';
 import { promisify } from 'util';
@@ -41,7 +41,10 @@ export class DockerRunnerService {
   private readonly pythonImage: string;
   private readonly nodeImage: string;
 
-  constructor(private readonly faultInjection: FaultInjectionService) {
+  constructor(
+    @Inject(FaultInjectionService)
+    private readonly faultInjection: FaultInjectionService,
+  ) {
     this.pythonImage = process.env.DOCKER_SANDBOX_IMAGE || 'python:3.12-alpine';
     this.nodeImage = process.env.DOCKER_NODE_SANDBOX_IMAGE || 'node:22-alpine';
   }

@@ -4,6 +4,7 @@ import {
   Get,
   HttpCode,
   HttpStatus,
+  Inject,
   Param,
   Post,
   Query,
@@ -16,7 +17,9 @@ import { RequireOrgRole } from '../auth/auth.guard';
 @ApiTags('Problems')
 @Controller('api/v1/orgs/:orgId/contests/:contestId/problems')
 export class ProblemsController {
-  constructor(private readonly problemsService: ProblemsService) {}
+  constructor(
+    @Inject(ProblemsService) private readonly problemsService: ProblemsService,
+  ) {}
 
   @Post()
   @RequireOrgRole('organizer')

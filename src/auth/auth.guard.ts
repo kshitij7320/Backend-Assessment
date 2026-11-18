@@ -1,6 +1,7 @@
 import {
   CanActivate,
   ExecutionContext,
+  Inject,
   Injectable,
   SetMetadata,
 } from '@nestjs/common';
@@ -18,8 +19,8 @@ export const RequireOrgRole = (role: OrgRole) =>
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(
-    private readonly authService: AuthService,
-    private readonly reflector: Reflector,
+    @Inject(AuthService) private readonly authService: AuthService,
+    @Inject(Reflector) private readonly reflector: Reflector,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {

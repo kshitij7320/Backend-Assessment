@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { PoolClient } from 'pg';
 import { DatabaseService } from '../db/database.service';
 import { OrganizationsService } from '../organizations/organizations.service';
@@ -36,7 +36,8 @@ export interface ComputedStanding {
 @Injectable()
 export class StandingsService {
   constructor(
-    private readonly db: DatabaseService,
+    @Inject(DatabaseService) private readonly db: DatabaseService,
+    @Inject(OrganizationsService)
     private readonly orgsService: OrganizationsService,
   ) {}
 

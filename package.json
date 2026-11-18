@@ -11,7 +11,7 @@
     "start:worker:dev": "tsx src/worker-main.ts",
     "db:migrate": "tsx src/db/migrate-cli.ts",
     "db:seed": "tsx src/db/seed-cli.ts",
-    "openapi:export": "tsx scripts/export-openapi.ts",
+    "openapi:export": "npm run build && tsx scripts/export-openapi.ts",
     "verify": "tsx scripts/verify-all.ts",
     "benchmark": "tsx scripts/workload-benchmark.ts",
     "bottleneck": "tsx scripts/investigate-bottleneck.ts",

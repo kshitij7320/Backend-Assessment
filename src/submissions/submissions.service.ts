@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { createHash, randomUUID } from 'crypto';
 import { DatabaseService } from '../db/database.service';
 import { OrganizationsService } from '../organizations/organizations.service';
@@ -25,11 +25,15 @@ import { ExecutionMode } from '../judge/runner.interface';
 @Injectable()
 export class SubmissionsService {
   constructor(
-    private readonly db: DatabaseService,
+    @Inject(DatabaseService) private readonly db: DatabaseService,
+    @Inject(OrganizationsService)
     private readonly orgsService: OrganizationsService,
+    @Inject(ContestsService)
     private readonly contestsService: ContestsService,
-    private readonly workerService: WorkerService,
+    @Inject(WorkerService) private readonly workerService: WorkerService,
+    @Inject(FaultInjectionService)
     private readonly faultInjection: FaultInjectionService,
+    @Inject(StructuredLoggerService)
     private readonly logger: StructuredLoggerService,
   ) {}
 

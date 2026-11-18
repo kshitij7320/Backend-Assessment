@@ -1,4 +1,5 @@
 import {
+  Inject,
   Injectable,
   OnModuleDestroy,
   OnModuleInit,
@@ -44,11 +45,16 @@ export class WorkerService implements OnModuleInit, OnModuleDestroy {
   private readonly pollIntervalMs: number;
 
   constructor(
-    private readonly db: DatabaseService,
+    @Inject(DatabaseService) private readonly db: DatabaseService,
+    @Inject(StandingsService)
     private readonly standingsService: StandingsService,
+    @Inject(DockerRunnerService)
     private readonly dockerRunner: DockerRunnerService,
+    @Inject(DeterministicRunnerService)
     private readonly deterministicRunner: DeterministicRunnerService,
+    @Inject(FaultInjectionService)
     private readonly faultInjection: FaultInjectionService,
+    @Inject(StructuredLoggerService)
     private readonly logger: StructuredLoggerService,
   ) {
     this.workerId = process.env.WORKER_ID || `worker-${randomUUID().slice(0, 8)}`;

@@ -1,6 +1,7 @@
 import {
   CallHandler,
   ExecutionContext,
+  Inject,
   Injectable,
   NestInterceptor,
 } from '@nestjs/common';
@@ -14,7 +15,10 @@ import {
 
 @Injectable()
 export class RequestContextInterceptor implements NestInterceptor {
-  constructor(private readonly logger: StructuredLoggerService) {}
+  constructor(
+    @Inject(StructuredLoggerService)
+    private readonly logger: StructuredLoggerService,
+  ) {}
 
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     const http = context.switchToHttp();

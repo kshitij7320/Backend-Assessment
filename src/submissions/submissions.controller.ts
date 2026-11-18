@@ -5,6 +5,7 @@ import {
   Headers,
   HttpCode,
   HttpStatus,
+  Inject,
   Param,
   Post,
   Query,
@@ -17,7 +18,10 @@ import { RequireOrgRole } from '../auth/auth.guard';
 @ApiTags('Submissions & Rejudging')
 @Controller('api/v1/orgs/:orgId/contests/:contestId/submissions')
 export class SubmissionsController {
-  constructor(private readonly submissionsService: SubmissionsService) {}
+  constructor(
+    @Inject(SubmissionsService)
+    private readonly submissionsService: SubmissionsService,
+  ) {}
 
   @Post()
   @HttpCode(HttpStatus.ACCEPTED)

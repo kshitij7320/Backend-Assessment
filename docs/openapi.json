@@ -1,0 +1,611 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/api/v1/health": {
+      "get": {
+        "operationId": "HealthController_getHealth",
+        "summary": "System health check, execution mode, and sandbox isolation limits",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Health & Diagnostics"
+        ]
+      }
+    },
+    "/api/v1/orgs": {
+      "post": {
+        "operationId": "OrganizationsController_createOrganization",
+        "summary": "Create or register an organization",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Organizations"
+        ]
+      }
+    },
+    "/api/v1/orgs/{orgId}": {
+      "get": {
+        "operationId": "OrganizationsController_getOrganization",
+        "summary": "Get organization details (requires org membership)",
+        "parameters": [
+          {
+            "name": "orgId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Organizations"
+        ]
+      }
+    },
+    "/api/v1/orgs/{orgId}/members": {
+      "post": {
+        "operationId": "OrganizationsController_addMember",
+        "summary": "Add or update a member in an organization (organizer only)",
+        "parameters": [
+          {
+            "name": "orgId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Organizations"
+        ]
+      },
+      "get": {
+        "operationId": "OrganizationsController_listMembers",
+        "summary": "List members in an organization with pagination",
+        "parameters": [
+          {
+            "name": "orgId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Organizations"
+        ]
+      }
+    },
+    "/api/v1/orgs/{orgId}/contests": {
+      "post": {
+        "operationId": "ContestsController_createContest",
+        "summary": "Create a contest in an organization (organizer only)",
+        "parameters": [
+          {
+            "name": "orgId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Contests"
+        ]
+      },
+      "get": {
+        "operationId": "ContestsController_listContests",
+        "summary": "List contests in an organization with pagination and stable ordering",
+        "parameters": [
+          {
+            "name": "orgId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Contests"
+        ]
+      }
+    },
+    "/api/v1/orgs/{orgId}/contests/{contestId}": {
+      "patch": {
+        "operationId": "ContestsController_updateContest",
+        "summary": "Update contest window or status override (organizer only)",
+        "parameters": [
+          {
+            "name": "orgId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "contestId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Contests"
+        ]
+      },
+      "get": {
+        "operationId": "ContestsController_getContest",
+        "summary": "Get contest details and deterministic open/closed state",
+        "parameters": [
+          {
+            "name": "orgId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "contestId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Contests"
+        ]
+      }
+    },
+    "/api/v1/orgs/{orgId}/contests/{contestId}/join": {
+      "post": {
+        "operationId": "ContestsController_joinContest",
+        "summary": "Join a contest as a participant",
+        "parameters": [
+          {
+            "name": "orgId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "contestId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Contests"
+        ]
+      }
+    },
+    "/api/v1/orgs/{orgId}/contests/{contestId}/problems": {
+      "post": {
+        "operationId": "ProblemsController_createProblem",
+        "summary": "Create a problem with initial version and test suite (organizer only)",
+        "parameters": [
+          {
+            "name": "orgId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "contestId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Problems"
+        ]
+      },
+      "get": {
+        "operationId": "ProblemsController_listProblems",
+        "summary": "List problems in a contest with pagination and stable ordering",
+        "parameters": [
+          {
+            "name": "orgId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "contestId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Problems"
+        ]
+      }
+    },
+    "/api/v1/orgs/{orgId}/contests/{contestId}/problems/{problemId}/versions": {
+      "post": {
+        "operationId": "ProblemsController_createProblemVersion",
+        "summary": "Publish a new immutable problem version and/or test-suite version without mutating historical verdicts (organizer only)",
+        "parameters": [
+          {
+            "name": "orgId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "contestId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "problemId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Problems"
+        ]
+      }
+    },
+    "/api/v1/orgs/{orgId}/contests/{contestId}/problems/{problemId}": {
+      "get": {
+        "operationId": "ProblemsController_getProblem",
+        "summary": "Get problem details (hides hidden test case inputs/outputs from participants)",
+        "parameters": [
+          {
+            "name": "orgId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "contestId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "problemId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Problems"
+        ]
+      }
+    },
+    "/api/v1/orgs/{orgId}/contests/{contestId}/leaderboard": {
+      "get": {
+        "operationId": "StandingsController_getLeaderboard",
+        "summary": "Query deterministic contest leaderboard with pagination and tie-breaking",
+        "parameters": [
+          {
+            "name": "orgId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "contestId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Leaderboard & Standings"
+        ]
+      }
+    },
+    "/api/v1/orgs/{orgId}/contests/{contestId}/leaderboard/rebuild": {
+      "post": {
+        "operationId": "StandingsController_rebuildLeaderboard",
+        "summary": "Rebuild contest standings from authoritative stored submissions and verify parity with serving path (organizer only)",
+        "parameters": [
+          {
+            "name": "orgId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "contestId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Leaderboard & Standings"
+        ]
+      }
+    },
+    "/api/v1/orgs/{orgId}/contests/{contestId}/submissions": {
+      "post": {
+        "operationId": "SubmissionsController_createSubmission",
+        "summary": "Submit a solution for asynchronous judging (supports Idempotency-Key header)",
+        "parameters": [
+          {
+            "name": "orgId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "contestId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Submissions & Rejudging"
+        ]
+      },
+      "get": {
+        "operationId": "SubmissionsController_listSubmissions",
+        "summary": "List submissions in a contest with pagination and stable ordering",
+        "parameters": [
+          {
+            "name": "orgId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "contestId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Submissions & Rejudging"
+        ]
+      }
+    },
+    "/api/v1/orgs/{orgId}/contests/{contestId}/submissions/{submissionId}": {
+      "get": {
+        "operationId": "SubmissionsController_getSubmission",
+        "summary": "Inspect submission status, verdict, and attempts (redacts hidden test cases and other users private code for participants)",
+        "parameters": [
+          {
+            "name": "orgId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "contestId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "submissionId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Submissions & Rejudging"
+        ]
+      }
+    },
+    "/api/v1/orgs/{orgId}/contests/{contestId}/submissions/{submissionId}/rejudge": {
+      "post": {
+        "operationId": "SubmissionsController_rejudgeSubmission",
+        "summary": "Rejudge a submission against an explicitly selected problemVersionId and testSuiteVersionId (organizer only)",
+        "parameters": [
+          {
+            "name": "orgId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "contestId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "submissionId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Submissions & Rejudging"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Shodh a Code — Contest Platform API",
+    "description": "Multi-tenant coding contest platform backend with versioned problems, isolated Docker judge, fenced lease workers, and deterministic standings.",
+    "version": "1.0.0",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "type": "http"
+      }
+    },
+    "schemas": {}
+  }
+}

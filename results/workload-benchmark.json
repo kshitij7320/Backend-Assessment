@@ -1,0 +1,98 @@
+{
+  "benchmark": "Stage 4 Concurrent Overlapping Submissions & Leaderboard Workload",
+  "commit": "9938dc9",
+  "timestamp": "2026-11-18T04:57:30.444Z",
+  "data_version": "2026.1-deterministic",
+  "execution_mode": "deterministic-double",
+  "configuration": {
+    "total_http_requests": 240,
+    "concurrency": 16,
+    "worker_instances": 2,
+    "db_pool_max": 25,
+    "worker_lease_duration_ms": 15000
+  },
+  "machine_resources": {
+    "platform": "darwin 27.2.0 (arm64)",
+    "cpu_model": "Apple M4",
+    "cpu_cores": 10,
+    "total_memory_gb": 16,
+    "node_version": "v26.9.0"
+  },
+  "dataset_size": {
+    "organizations": 2,
+    "contests": 2,
+    "active_participants": 40,
+    "problems": 3,
+    "submissions_created_in_workload": 84
+  },
+  "request_mix": {
+    "submissions_post": {
+      "count": 84,
+      "share_pct": 35
+    },
+    "leaderboard_get": {
+      "count": 108,
+      "share_pct": 45
+    },
+    "submissions_feed_get": {
+      "count": 48,
+      "share_pct": 20
+    }
+  },
+  "api_overhead_latency_ms": {
+    "overall": {
+      "p50": 15.55,
+      "p95": 48.31,
+      "p99": 70.31
+    },
+    "post_submission_api_only": {
+      "p50": 30.29,
+      "p95": 63.55,
+      "p99": 76.19
+    },
+    "get_leaderboard": {
+      "p50": 12.11,
+      "p95": 45.53,
+      "p99": 60.15
+    },
+    "get_submissions_feed": {
+      "p50": 12.45,
+      "p95": 31.62,
+      "p99": 36.23
+    }
+  },
+  "throughput_and_errors": {
+    "api_phase_duration_ms": 352.54,
+    "total_workload_Plus_drain_duration_ms": 1443.13,
+    "api_throughput_req_per_sec": 680.77,
+    "http_errors": 0
+  },
+  "asynchronous_judge_metrics_ms": {
+    "queue_delay_ms": {
+      "p50": 528.72,
+      "p95": 970.68,
+      "p99": 1026.3
+    },
+    "program_execution_deterministic_double_ms": {
+      "p50": 65,
+      "p95": 101,
+      "p99": 155
+    },
+    "program_execution_real_docker_container_sample_ms": {
+      "execution_mode": "docker",
+      "sample_size": 4,
+      "p50": 512,
+      "p95": 624,
+      "p99": 624
+    },
+    "end_to_end_turnaround_ms": {
+      "p50": 597.97,
+      "p95": 1020.63,
+      "p99": 1088.5
+    }
+  },
+  "consistency_verification": {
+    "standings_rebuilt_matches_serving_path": true,
+    "verified_participant_count": 40
+  }
+}

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { randomUUID } from 'crypto';
 import { DatabaseService } from '../db/database.service';
 import { OrganizationsService } from '../organizations/organizations.service';
@@ -37,7 +37,8 @@ export interface ContestRecord {
 @Injectable()
 export class ContestsService {
   constructor(
-    private readonly db: DatabaseService,
+    @Inject(DatabaseService) private readonly db: DatabaseService,
+    @Inject(OrganizationsService)
     private readonly orgsService: OrganizationsService,
   ) {}
 

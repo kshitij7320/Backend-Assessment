@@ -1,0 +1,154 @@
+{
+  "all_passed": true,
+  "commit": "9938dc9",
+  "data_version": "2026.1-deterministic",
+  "timestamp": "2026-11-18T05:01:24.680Z",
+  "results": [
+    {
+      "scenario_family": "Normal flow",
+      "check_name": "Join, submit, real Docker judge execution, penalty calculation, and leaderboard ranking",
+      "execution_mode": "docker",
+      "passed": true,
+      "details": {
+        "rank_1": {
+          "user_id": "11111111-1111-4111-8111-111111111103",
+          "total_points": 200
+        },
+        "rank_2": {
+          "user_id": "11111111-1111-4111-8111-111111111102",
+          "total_points": 100,
+          "wrong_attempts_on_A": 1,
+          "total_penalty_seconds": 4800
+        }
+      }
+    },
+    {
+      "scenario_family": "Normal flow",
+      "check_name": "Problem & test-suite versioning preserves historical submission references and verdicts",
+      "execution_mode": "docker",
+      "passed": true,
+      "details": {
+        "historical_submission_problem_version_id": "55555555-5555-4555-8555-555555555501",
+        "new_problem_version_id": "83e83007-b12d-42f1-bdc8-4adc540dacda",
+        "historical_verdict_preserved": "ACCEPTED"
+      }
+    },
+    {
+      "scenario_family": "Retries and concurrency",
+      "check_name": "Simultaneous multi-instance idempotency key race and payload conflict rejection",
+      "execution_mode": "deterministic-double",
+      "passed": true,
+      "details": {
+        "simultaneous_requests": 8,
+        "unique_submissions_created": 1,
+        "conflict_status_on_mutated_payload": 409,
+        "conflict_code": "IDEMPOTENCY_KEY_CONFLICT"
+      }
+    },
+    {
+      "scenario_family": "Retries and concurrency",
+      "check_name": "Competing workers fenced by monotonic fencing_token without duplicate points or stale overwrite",
+      "execution_mode": "deterministic-double",
+      "passed": true,
+      "details": {
+        "worker_1_stale_token": 5,
+        "worker_2_authoritative_token": 6,
+        "stale_commit_rejected_reason": "STALE_FENCING_TOKEN",
+        "final_verdict": "ACCEPTED",
+        "awarded_points": 200
+      }
+    },
+    {
+      "scenario_family": "Retries and concurrency",
+      "check_name": "Barrier-synchronized out-of-order completion preserves chronological wrong-attempt penalty and score",
+      "execution_mode": "deterministic-double",
+      "passed": true,
+      "details": {
+        "sub1_submitted_first_completed_second": "84d02d07-4d9a-4846-ae91-b6b25659f8c5",
+        "sub2_submitted_second_completed_first": "2ca5f395-41f5-4741-a23e-6bf8ac9d7bd2",
+        "resulting_points": 200,
+        "resulting_wrong_attempts_before_ac": 1
+      }
+    },
+    {
+      "scenario_family": "Recovery and rejudging",
+      "check_name": "Recovery from interrupted dispatch and worker crash after judging before completion ack",
+      "execution_mode": "deterministic-double",
+      "passed": true,
+      "details": {
+        "submission_id": "3c299613-2472-46ad-a1b8-301a2cbf4fea",
+        "first_worker_outcome": "FAIL_BEFORE_ACK_INJECTED",
+        "second_worker_retry_count": 1,
+        "final_verdict": "ACCEPTED"
+      }
+    },
+    {
+      "scenario_family": "Recovery and rejudging",
+      "check_name": "Controllable runner failure recovery and zero-penalty protection on JUDGE_FAILURE",
+      "execution_mode": "docker",
+      "passed": true,
+      "details": {
+        "transient_crash_recovered_after_retry": 1,
+        "permanent_failure_verdict": "JUDGE_FAILURE",
+        "student_score_unchanged": true
+      }
+    },
+    {
+      "scenario_family": "Recovery and rejudging",
+      "check_name": "Organizer rejudging against explicit problem/test-suite version and late replaced attempt rejection",
+      "execution_mode": "docker",
+      "passed": true,
+      "details": {
+        "preserved_attempts_count": 3,
+        "late_attempt_2_status": "superseded",
+        "authoritative_attempt_number": 3,
+        "authoritative_final_verdict": "ACCEPTED"
+      }
+    },
+    {
+      "scenario_family": "Security and execution",
+      "check_name": "Cross-organization denial, participant organizer-action denial, private code & hidden test protection",
+      "execution_mode": "docker",
+      "passed": true,
+      "details": {
+        "cross_org_status": 403,
+        "cross_org_code": "CROSS_ORG_ACCESS_DENIED",
+        "participant_organizer_action_status": 403,
+        "private_submission_read_status": 403,
+        "hidden_test_data_redacted": true
+      }
+    },
+    {
+      "scenario_family": "Security and execution",
+      "check_name": "Real Docker sandbox resource limits (TLE, OLE, CE, RE), network/uid/ro-rootfs/socket isolation probe, and container cleanup",
+      "execution_mode": "docker",
+      "passed": true,
+      "details": {
+        "verdicts_verified": {
+          "COMPILATION_ERROR": "COMPILATION_ERROR",
+          "RUNTIME_ERROR": "RUNTIME_ERROR",
+          "TIME_LIMIT_EXCEEDED": "TIME_LIMIT_EXCEEDED",
+          "OUTPUT_LIMIT_EXCEEDED": "OUTPUT_LIMIT_EXCEEDED"
+        },
+        "isolation_probe_verdict": "ACCEPTED",
+        "leftover_sandbox_containers": 0
+      }
+    },
+    {
+      "scenario_family": "Performance and consistency",
+      "check_name": "Standings rebuild parity from authoritative records and structured log correlation/redaction check",
+      "execution_mode": "docker",
+      "passed": true,
+      "details": {
+        "consistent_with_serving_path": true,
+        "participant_count": 5,
+        "sample_correlated_log": {
+          "event": "attempt_completed_authoritative",
+          "submission_id": "83606545-04e3-4818-8aeb-8f33ec007887",
+          "attempt_id": "34a0ea0d-6f69-4e62-841e-e8bc42e2d205",
+          "fencing_token": 1
+        }
+      }
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { spawn } from 'child_process';
 import {
   ExecuteSubmissionInput,
@@ -26,7 +26,10 @@ exec(compiled, {'__name__': '__main__'})
 
 @Injectable()
 export class DeterministicRunnerService {
-  constructor(private readonly faultInjection: FaultInjectionService) {}
+  constructor(
+    @Inject(FaultInjectionService)
+    private readonly faultInjection: FaultInjectionService,
+  ) {}
 
   public async executeSuite(
     input: ExecuteSubmissionInput,
