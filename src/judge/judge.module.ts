@@ -22,3 +22,4 @@ import { StandingsModule } from '../standings/standings.module';
   ],
 })
 export class JudgeModule {}
+

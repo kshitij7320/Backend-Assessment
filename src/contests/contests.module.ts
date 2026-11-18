@@ -8,3 +8,4 @@ import { ContestsController } from './contests.controller';
   exports: [ContestsService],
 })
 export class ContestsModule {}
+

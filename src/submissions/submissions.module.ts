@@ -10,3 +10,4 @@ import { ContestsModule } from '../contests/contests.module';
   exports: [SubmissionsService],
 })
 export class SubmissionsModule {}
+

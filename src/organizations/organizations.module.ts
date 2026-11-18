@@ -9,3 +9,4 @@ import { OrganizationsController } from './organizations.controller';
   exports: [OrganizationsService],
 })
 export class OrganizationsModule {}
+

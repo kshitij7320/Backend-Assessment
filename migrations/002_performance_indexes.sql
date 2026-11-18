@@ -17,3 +17,4 @@ CREATE INDEX IF NOT EXISTS idx_contest_standings_leaderboard_order
     last_accepted_at ASC NULLS LAST,
     user_id ASC
   );
+

@@ -153,3 +153,4 @@ export class StructuredLoggerService {
     StructuredLoggerService.ringBuffer = [];
   }
 }
+

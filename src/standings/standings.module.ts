@@ -8,3 +8,4 @@ import { StandingsController } from './standings.controller';
   exports: [StandingsService],
 })
 export class StandingsModule {}
+

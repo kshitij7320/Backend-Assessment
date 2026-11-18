@@ -8,3 +8,4 @@ import { StructuredLoggerService } from '../common/logger/structured-logger.serv
   exports: [DatabaseService, StructuredLoggerService],
 })
 export class DatabaseModule {}
+

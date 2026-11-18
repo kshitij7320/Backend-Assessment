@@ -205,3 +205,4 @@ CREATE INDEX IF NOT EXISTS idx_judging_attempts_queue
 
 CREATE INDEX IF NOT EXISTS idx_judging_attempts_submission
   ON judging_attempts (submission_id, attempt_number DESC);
+

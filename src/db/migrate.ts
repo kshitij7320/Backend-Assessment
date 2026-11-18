@@ -61,3 +61,4 @@ export async function runMigrations(options: MigrationOptions): Promise<string[]
 
   return newlyApplied;
 }
+

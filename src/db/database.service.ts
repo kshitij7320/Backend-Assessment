@@ -92,3 +92,4 @@ export class DatabaseService implements OnModuleDestroy {
     await this.pool.end();
   }
 }
+
