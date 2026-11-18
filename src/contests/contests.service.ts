@@ -107,10 +107,11 @@ export class ContestsService {
 
     let statusOverride: 'force_open' | 'force_closed' | null = null;
     if (body.statusOverride !== undefined && body.statusOverride !== null) {
-      statusOverride = assertEnum(body.statusOverride, 'statusOverride', [
-        'force_open',
-        'force_closed',
-      ]);
+      statusOverride = assertEnum<'force_open' | 'force_closed'>(
+        body.statusOverride,
+        'statusOverride',
+        ['force_open', 'force_closed'],
+      );
     }
 
     return this.db.withTransaction(async (client) => {
@@ -206,10 +207,11 @@ export class ContestsService {
         statusOverride =
           body.statusOverride === null
             ? null
-            : assertEnum(body.statusOverride, 'statusOverride', [
-                'force_open',
-                'force_closed',
-              ]);
+            : assertEnum<'force_open' | 'force_closed'>(
+                body.statusOverride,
+                'statusOverride',
+                ['force_open', 'force_closed'],
+              );
       }
 
       const title =
