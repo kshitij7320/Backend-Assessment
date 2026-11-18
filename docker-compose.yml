@@ -1,0 +1,88 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: shodh-postgres
+    environment:
+      POSTGRES_USER: shodh
+      POSTGRES_PASSWORD: shodh_secret
+      POSTGRES_DB: shodh_contest
+    ports:
+      - "5432:5432"
+    volumes:
+      - shodh_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U shodh -d shodh_contest"]
+      interval: 3s
+      timeout: 3s
+      retries: 10
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: shodh-api
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      PORT: 3000
+      SERVICE_NAME: shodh-api
+      DATABASE_URL: postgresql://shodh:shodh_secret@postgres:5432/shodh_contest
+      AUTO_MIGRATE: "true"
+      AUTO_SEED: "true"
+      WORKER_ENABLED: "false"
+      JUDGE_EXECUTION_MODE: docker
+      DOCKER_SANDBOX_IMAGE: python:3.12-alpine
+    ports:
+      - "3000:3000"
+
+  worker-1:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: shodh-worker-1
+    command: ["node", "dist/worker-main.js"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+      api:
+        condition: service_started
+    environment:
+      SERVICE_NAME: shodh-worker
+      WORKER_ID: worker-compose-1
+      DATABASE_URL: postgresql://shodh:shodh_secret@postgres:5432/shodh_contest
+      WORKER_ENABLED: "true"
+      WORKER_POLL_INTERVAL_MS: "150"
+      WORKER_LEASE_DURATION_MS: "15000"
+      JUDGE_EXECUTION_MODE: docker
+      DOCKER_SANDBOX_IMAGE: python:3.12-alpine
+    volumes:
+      # Only the trusted worker control process mounts docker.sock to spawn sibling sandbox containers;
+      # submitted student containers NEVER mount docker.sock or any host path.
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  worker-2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: shodh-worker-2
+    command: ["node", "dist/worker-main.js"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+      api:
+        condition: service_started
+    environment:
+      SERVICE_NAME: shodh-worker
+      WORKER_ID: worker-compose-2
+      DATABASE_URL: postgresql://shodh:shodh_secret@postgres:5432/shodh_contest
+      WORKER_ENABLED: "true"
+      WORKER_POLL_INTERVAL_MS: "150"
+      WORKER_LEASE_DURATION_MS: "15000"
+      JUDGE_EXECUTION_MODE: docker
+      DOCKER_SANDBOX_IMAGE: python:3.12-alpine
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+volumes:
+  shodh_pgdata:
